@@ -30,10 +30,10 @@ const Login = () => {
     axios
       .post(`http://localhost:5000/api/login`, credentials)
       .then((res) => {
-        console.log(res.data);
+        window.localStorage.setItem("tToken", JSON.stringify(res.data.payload));
       })
       .catch((err) => {
-        console.log(err.response.data.error);
+        setError(err.response.data.error);
       })
       .finally(() => {});
   };
