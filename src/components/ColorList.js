@@ -55,7 +55,7 @@ const ColorList = ({ colors, getLatestColors, updateColors }) => {
         {colors.map((color) => (
           <Color
             key={color.id}
-            editing={editing}
+            editing={colorToEdit}
             color={color}
             editColor={editColor}
             deleteColor={deleteColor}

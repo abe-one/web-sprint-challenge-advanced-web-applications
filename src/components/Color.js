@@ -9,9 +9,13 @@ const Color = ({ color, editing, editColor, deleteColor }) => {
   return (
     <li data-testid="color" onClick={() => editColor(color)}>
       <span>
-        <span className="delete" onClick={handleClick}>
+        <span
+          hidden={editing.id !== color.id}
+          className="delete"
+          onClick={handleClick}
+        >
           x
-        </span>{" "}
+        </span>
         {` ${color.color}`}
       </span>
 
