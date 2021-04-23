@@ -9,8 +9,9 @@ const BubblePage = () => {
   const [colorList, setColorList] = useState([]);
 
   const getLatestColors = () =>
-    fetchColors().then((res) =>
-      Array.isArray(res) ? setColorList(res) : null
+    fetchColors().then(
+      (res) => (Array.isArray(res) ? setColorList(res) : null)
+      // Because fetchColors does not provide an error to catch
     );
 
   useEffect(() => {
