@@ -4,15 +4,19 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from "./components/Login";
 import BubblePage from "./components/BubblePage";
 import "./styles.scss";
-import PrivateRoute from "./utils/PrivateRoute";
+import PrivateRoute from "./helpers/PrivateRoute";
 
 function App() {
+  const logout = () => {
+    window.localStorage.removeItem("tToken");
+  };
+
   return (
     <Router>
       <div className="App">
         <header>
           Color Picker Sprint Challenge
-          <a data-testid="logoutButton" href="#">
+          <a onClick={logout} data-testid="logoutButton" href="#">
             logout
           </a>
         </header>
