@@ -1,16 +1,17 @@
 import React from "react";
 
-const Color = ({ color, editing, editColor, deleteColor }) => {
+const Color = ({ color, colorToEdit, setEditing, editColor, deleteColor }) => {
   const handleClick = (e) => {
     e.stopPropagation();
     deleteColor(color);
+    setEditing(false);
   };
 
   return (
     <li data-testid="color" onClick={() => editColor(color)}>
       <span>
         <span
-          hidden={editing.id !== color.id}
+          hidden={colorToEdit.id !== color.id}
           className="delete"
           onClick={handleClick}
         >
