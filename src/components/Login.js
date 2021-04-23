@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const Login = () => {
   // make a post request to retrieve a token from the api
@@ -26,6 +27,15 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    axios
+      .post(`http://localhost:5000/api/login`, credentials)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response.data.error);
+      })
+      .finally(() => {});
   };
 
   return (
@@ -50,6 +60,7 @@ const Login = () => {
             onChange={handleChange}
             placeholder="Password"
           />
+          <button type="submit">Login</button>
         </form>
       </div>
 
