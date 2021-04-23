@@ -37,28 +37,30 @@ const Login = () => {
   return (
     <div>
       <h1>Welcome to the Bubble App!</h1>
-      <div data-testid="loginForm" className="login-form">
-        <form onSubmit={handleLogin}>
-          <label htmlFor="username">Username</label>
-          <input
-            name="username"
-            type="text"
-            value={credentials.username}
-            onChange={handleChange}
-            placeholder="Username"
-            data-testid="username"
-          />
-          <label htmlFor="password">Password</label>
-          <input
-            name="password"
-            type="password"
-            value={credentials.password}
-            onChange={handleChange}
-            placeholder="Password"
-          />
-          <button type="submit">Login</button>
-        </form>
-      </div>
+      <form
+        onSubmit={handleLogin}
+        data-testid="loginForm"
+        className="login-form"
+      >
+        <label htmlFor="username">Username</label>
+        <input
+          name="username"
+          type="text"
+          value={credentials.username}
+          onChange={handleChange}
+          placeholder="Username"
+          data-testid="username"
+        />
+        <label htmlFor="password">Password</label>
+        <input
+          name="password"
+          type="password"
+          value={credentials.password}
+          onChange={handleChange}
+          placeholder="Password"
+        />
+        <button type="submit">Login</button>
+      </form>
 
       <p data-testid="errorMessage" className="error">
         {error}
