@@ -1,14 +1,30 @@
 import React, { useEffect, useState } from "react";
 
+import fetchColors from "../helpers/fetchColors";
+
 import Bubbles from "./Bubbles";
 import ColorList from "./ColorList";
 
 const BubblePage = () => {
   const [colorList, setColorList] = useState([]);
 
+  const getLatestColors = () =>
+    fetchColors().then(
+      (res) => (Array.isArray(res) ? setColorList(res) : null)
+      // Because fetchColors does not provide an error to catch
+    );
+
+  useEffect(() => {
+    getLatestColors();
+  }, []);
+
   return (
     <div className="container">
-      <ColorList colors={colorList} updateColors={setColorList} />
+      <ColorList
+        colors={colorList}
+        updateColors={setColorList}
+        getLatestColors={getLatestColors}
+      />
       <Bubbles colors={colorList} />
     </div>
   );

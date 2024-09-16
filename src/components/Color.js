@@ -1,22 +1,28 @@
-import React from 'react';
+import React from "react";
 
+const Color = ({ color, colorToEdit, setEditing, editColor, deleteColor }) => {
+  const handleClick = (e) => {
+    e.stopPropagation();
+    deleteColor(color);
+    setEditing(false);
+  };
 
-const Color = ({color, editing, editColor, deleteColor}) => {
-    const handleClick = (e) => {
-        e.stopPropagation();
-        deleteColor(color);
-    }
-
-    return(<li data-testid="color" onClick={() => editColor(color)}>
-        <span>
-            <span className="delete" onClick={handleClick}>x</span> {` ${color.color}`}
+  return (
+    <li data-testid="color" onClick={() => editColor(color)}>
+      <span>
+        <span
+          hidden={colorToEdit.id !== color.id}
+          className="delete"
+          onClick={handleClick}
+        >
+          x
         </span>
-        
-        <div 
-            className="color-box"
-            style={{ backgroundColor: color.code.hex }}
-        />
-    </li>);
-}
+        {` ${color.color}`}
+      </span>
+
+      <div className="color-box" style={{ backgroundColor: color.code.hex }} />
+    </li>
+  );
+};
 
 export default Color;

@@ -1,25 +1,70 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
-  // make a post request to retrieve a token from the api
-  // when you have handled the token, navigate to the BubblePage route
+  const initialCredentials = {
+    username: "",
+    password: "",
+  };
 
-  useEffect(()=>{
-    // make a post request to retrieve a token from the api
-    // when you have handled the token, navigate to the BubblePage route
-  });
-  
-  const error = "";
-  //replace with error state
+  const [credentials, setCredentials] = useState(initialCredentials);
+  const [error, setError] = useState("");
+
+  const { push } = useHistory();
+
+  const handleChange = (e) => {
+    setCredentials({
+      ...credentials,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    axios
+      .post(`http://localhost:5000/api/login`, credentials)
+      .then((res) => {
+        window.localStorage.setItem("tToken", JSON.stringify(res.data.payload));
+        push("/bubbles");
+      })
+      .catch((err) => {
+        setError(err.response.data.error);
+      })
+      .finally(() => {});
+  };
 
   return (
     <div>
       <h1>Welcome to the Bubble App!</h1>
-      <div data-testid="loginForm" className="login-form">
-        <h2>Build login form here</h2>
-      </div>
+      <form
+        onSubmit={handleLogin}
+        data-testid="loginForm"
+        className="login-form"
+      >
+        <label htmlFor="username">Username</label>
+        <input
+          name="username"
+          type="text"
+          value={credentials.username}
+          onChange={handleChange}
+          placeholder="Username"
+          data-testid="username"
+        />
+        <label htmlFor="password">Password</label>
+        <input
+          name="password"
+          type="password"
+          value={credentials.password}
+          onChange={handleChange}
+          placeholder="Password"
+        />
+        <button type="submit">Login</button>
+      </form>
 
-      <p data-testid="errorMessage" className="error">{error}</p>
+      <p data-testid="errorMessage" className="error">
+        {error}
+      </p>
     </div>
   );
 };
